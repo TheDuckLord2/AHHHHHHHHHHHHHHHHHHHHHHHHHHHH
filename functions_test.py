@@ -1,6 +1,6 @@
 import math
 import pytest
-from functions import divide, sq
+from functions import *
 # testing the sq function
 @pytest.mark.parametrize("values", [9,-1,"Hello!",True,3.0])
 def test_sq(values):
