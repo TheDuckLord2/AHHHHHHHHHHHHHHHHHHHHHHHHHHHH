@@ -74,3 +74,24 @@ def test_greetUser_raises_type_error(args):
 def test_greetUser_with_empty_inputs(args, capsys):
     with pytest.raises(ValueError):
         greetUser(*args)
+        
+        
+#Tests Display Items
+@pytest.mark.parametrize("numbers, index, expected_output", [
+    ([1, 2, 3], 1, "Your item at 1 index is 2"),
+    ([], 0, ValueError),
+    ([1, 2, 3], 3, IndexError),
+    ([1, 2, "3"], 2, TypeError)
+])
+def test_displayItem(numbers, index, expected_output):
+    if expected_output == ValueError:
+        with pytest.raises(ValueError):
+            displayItem(numbers, index)
+    elif expected_output == IndexError:
+        with pytest.raises(IndexError):
+            displayItem(numbers, index)
+    elif expected_output == TypeError:
+        with pytest.raises(TypeError):
+            displayItem(numbers, index)
+    else:
+        assert displayItem(numbers, index) == expected_output
