@@ -3,6 +3,7 @@ import pytest
 from functions import *
 
 
+
 # Tests for openFile(filename)
 @pytest.mark.parametrize("input",["testing.txt","testing",5,False])
 def test_openFileName(capfd, input):
