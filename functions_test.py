@@ -21,3 +21,25 @@ def test_divide(monkeypatch,capsys,divalues):
         assert captured_stdout.strip() == "Your numbers divided is: 5.0"
     else:
         assert captured_stdout.strip() == "Cannot divide by zero or non number."
+        
+# Testing the greet user function
+
+@pytest.mark.parametrize("first,middle,last", [("Your", "Mom", "Mother"), ("Hello", "World", "!")])
+def test_greetUser(capfd, first, middle, last):
+    greetUser(first, middle, last)
+    captured = capfd.readouterr()
+    assert captured.out == f"Hello!\nWelcome to the program {first} {middle} {last}\nGlad to have you!\n"
+
+@pytest.mark.parametrize("args", [("Your", "Mom", "Mother"), ("Hello", "World", "!")])
+def test_greetUser_returns_none(args):
+    assert greetUser(*args) == None
+
+@pytest.mark.parametrize("args", [(123, 456, 789), (1, "two", 3)])
+def test_greetUser_raises_type_error(args):
+    with pytest.raises(TypeError):
+        greetUser(*args)
+
+@pytest.mark.parametrize("args", [("", "Middle", "Last"), ("First", "", "Last"), ("First", "Middle", "")])
+def test_greetUser_with_empty_inputs(args, capsys):
+    with pytest.raises(ValueError):
+        greetUser(*args)
