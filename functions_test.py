@@ -1,6 +1,36 @@
 import math
 import pytest
 from functions import *
+
+
+# Tests for openFile(filename)
+@pytest.mark.parametrize("input",["testing.txt","testing",5,False])
+def test_openFileName(capfd, input):
+    openFile(input)
+    captured = capfd.readouterr()
+    if isinstance(input,str) and input == "testing.txt":
+        assert captured.out == "File opened.\n"
+    else:
+        assert captured.out == "The file does not exist.\n"
+
+
+# Tests for numbers(num1, num2)
+@pytest.mark.parametrize("val1, val2",[[6,3],[6.0,3.0],[6,0],[6,"three"]])
+def test_numbers(monkeypatch,capsys,val1, val2):
+    def geninputs():
+        for item in (val1,val2):
+            yield item
+    GEN = geninputs()
+    monkeypatch.setattr('builtins.input',lambda _: next(GEN))
+    print(numbers(val1,val2))
+    captured_stdout, captured_stderr = capsys.readouterr()
+    if (val1,val2)[1] == 3 or (val1,val2)[1] == 3.0:
+        assert captured_stdout.strip() == '2.0'
+    else:
+        assert captured_stdout.strip() == "You cannot divide a number by zero/the numbers must be of the same datatype."
+
+
+
 # testing the sq function
 @pytest.mark.parametrize("values", [9,-1,"Hello!",True,3.0])
 def test_sq(values):
