@@ -72,6 +72,12 @@ def sq(num):
 ## greets them by their entire name
 ## names should be strings
 def greetUser(first, middle, last):
+    if not all(isinstance(arg, str) for arg in (first, middle, last)):
+        raise TypeError("All arguments must be strings")
+    
+    if not all(arg for arg in (first, middle, last)):
+        raise ValueError("All arguments must be non-empty")
+        
     print("Hello!")
     print("Welcome to the program", first, middle, last)
     print("Glad to have you!")
@@ -79,4 +85,11 @@ def greetUser(first, middle, last):
 ## takes in a Python list
 ## attempts to display the item at the index provided
 def displayItem(numbers, index):
-    print("Your item at", index, "index is", numbers[index])
+    if len(numbers) == 0:
+        raise ValueError("The input list cannot be empty")
+    if not all(isinstance(n, (int, float)) for n in numbers):
+        raise TypeError("The input list should only contain numbers")
+    try:
+        return "Your item at " + str(index) + " index is " + str(numbers[index])
+    except IndexError:
+        raise IndexError("Index out of range")
