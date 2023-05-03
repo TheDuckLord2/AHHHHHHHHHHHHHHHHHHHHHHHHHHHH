@@ -95,3 +95,38 @@ def test_displayItem(numbers, index, expected_output):
             displayItem(numbers, index)
     else:
         assert displayItem(numbers, index) == expected_output
+        
+#Tests dist
+def test_dist_same_point():
+    assert dist(0, 0, 0, 0) == 0
+
+def test_dist_diagonal_points():
+    assert math.isclose(dist(0, 0, 1, 1), math.sqrt(2))
+    assert math.isclose(dist(1, 1, 0, 0), math.sqrt(2))
+
+def test_dist_invalid_input_types():
+    assert dist('a',0,0,0)
+    assert dist(0,'b',0,0)
+    assert dist(0,0,'c',0)
+    assert dist(0,0,0,'d')
+
+def test_dist_with_empty_input():
+    assert dist()
+
+def test_dist_valid_input():
+    assert math.isclose(dist(0, 0, 3, 4), 5)
+    assert math.isclose(dist(-2, 1, 1, 5), 5)
+
+#Tests isPalindrome
+def test_isPalindrome_palindrome():
+    assert isPalindrome("racecar")
+
+def test_isPalindrome_not_palindrome():
+    assert isPalindrome("hello") == False
+
+def test_isPalindrome_non_string_input():
+    assert isPalindrome(123) == False
+    assert isPalindrome(['a', 'b', 'c']) == False
+
+def test_isPalindrome_blank():
+    assert isPalindrome("") == False
