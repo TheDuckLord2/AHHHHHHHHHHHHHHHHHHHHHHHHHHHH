@@ -22,6 +22,8 @@ def numbers(num1, num2):
 ## takes in two points
 ## finds the distance between the points
 def dist(x1, y1, x2, y2):
+    if not all(isinstance(p, (int, float)) for p in [x1, y1, x2, y2]):
+        raise TypeError("Input parameters must be numeric")
     dist = (x2 - x1) ** 2 + (y2 - y1) ** 2
     dist = math.sqrt(dist)
 
@@ -30,6 +32,10 @@ def dist(x1, y1, x2, y2):
 ## takes in a string -- reverses it
 ## then compares the two
 def isPalindrome(temp):
+    if not temp:
+        return False
+    if not isinstance(temp, str):
+        return False
     test = temp[::-1]
 
     if(test == temp):
